@@ -1,0 +1,305 @@
+
+* Le livre de Git, par Philippe Carphin
+** Avant de commencer
+*** Vocabulaire
+
+Porter attention au vocabulaire.  C'est important parce que ça peut nous
+permettre de détecter nos propres incompréhensions.
+
+Quand je dis 'attention', je veux dire *attention très particulière*.
+J'illustre par un exemple: j'ai entendu des gens autour de moi dire "dans une
+branche".  Par contre, la façon habituelle de parler est de dire "sur une
+branche".  Les gens ne disent pas vraiment ça "dans une branche".
+
+Même si je n'écoutais pas, le fait d'entendre "dans une branche" a immédiatement
+attiré mon attention.  J'ai constaté qu'ils avaient des problèmes avec git.
+J'ai écouté pour voir s'ils seraient en mesure de le régler.
+
+Ils allaient dans la mauvaise direction.
+
+Je suis allé les voir et étant un peu connu comme expert de git, ils m'ont
+accueilli.  Je me suis assis avec eux et j'ai discuté pourquoi je suis venu les
+voir.  Je leur ai parlé de leur utilisation du terme "dans" et je leur ai
+demandé d'où ça venait.
+
+Ce qu'ils m'ont dit m'a permis de déceler la source d'une incompréhension d'un
+concep de base sur lequel la compréhension de presque tout git dépend.  Cette
+incompréhension nuisait à leur compréhension de tous les concepts dépendant.
+
+Je ne mentionnerai pas l'incompréhension ici pour ne pas polluer le cerveau de
+quelqu'un de très nouveau, étant donné que cette section est au début.
+
+**** Plus pour les enseignants de git
+
+J'encourage quiconque prévoit expliquer git à d'autres personnes d'être très
+rigoureux avec le vocabulaire.  En effet, mon exemple avec "dans" au lieu de
+"sur" montre très bien que c'est un excellent outil pour déceler et éliminer les
+incompréhensions.
+
+Mais aussi, de munir les apprenants d'une maîtrise du vocabulaire va
+non-seulement les aider à comprendre la documentation, mais en plus, leur
+inculquer une attention pour le vocabulaire va leur donner l'habileté de déceler
+leurs propres incompréhensions et leur permettre d'investiguer: "Partout je vois
+sur internet 'on a branch' mais moi je dis 'dans une branche' et moi ça
+m'apparaît bizarre qu'ils disent pas 'in a branch', je vais aller
+revoir les notions élémentaires de git sur les branches."
+
+** Introduction
+
+Si vous connaissez sans ouvrir de documentation ou de notes personnelles
+exactement ce que font 3 sur 5 de ces commandes, mais vous devriez quand même le
+regarder.
+
+#+BEGIN_SRC sh
+git push cmc develop
+#+END_SRC
+
+#+BEGIN_SRC
+git reset --mixed
+#+END_SRC
+
+#+BEGIN_SRC sh
+git stash
+#+END_SRC
+
+#+BEGIN_SRC sh
+git rebase -i
+#+END_SRC
+
+#+BEGIN_SRC sh
+git reset --hard
+#+END_SRC
+
+** Introduction à git
+#+BEGIN_QUOTE
+Si vous avez déjà utilisé git, vous pouvez passer à la sections sur les concepts
+fondamentaux.
+#+END_QUOTE
+Dans ces deux vidéos, je vais montrer les fonctionnalités de base de git sans
+montrer les commandes.  On va voir c'est quoi que git fait illustré à l'aide
+d'un vidéo où je montre comment on ferait ce que git fait "à la main".
+
+Ceci permet de relier les concepts très abstrais de git à des concepts très
+concrèts que nous connaissons depuis longtemps.
+
+Ce lien est très important car les concepts abstraits sont plus faciles à
+manipuler que les concepts concrèts.  Mais ceci n'est vrai que si les le lien
+entre les concepts abstraits et les concèpts concrets est très solide.
+
+Une autre analogie est que les notations algébriques rendent possibles des
+calculs qui seraient beaucoup plus compliqués.  En pouvant mettre des concepts
+abstraits mais très simples et très bien compris en arrière de concepts plus
+complexes, on peut utiliser la notre compréhension des concepts abstraits pour
+streamliner la discussion de la même manière que nos notations modernes
+permettent d'écrire les équations de Maxwell en quatres toutes petites lignes,
+*les concepts fondamentaux de git vont me permettre d'expliquer de manière super
+simple ce qui est expliqué de façon compliquée dans la plûpart des tutoriels en
+ligne*.
+
+C'est pourquoi je crois que l'approche que je propose est la meilleure.
+
+Le premier vidéo décrit le rôle de git en termes familiers et sans aucune
+référence à git.
+
+Le second vidéo montre l'utilisation de l'outil =gitk= pour explorer
+l'historique d'un entrepôt git.  J'explique comment les éléments qui nous sont
+présentés sont reliés aux concepts décrits dans le premier vidéo.
+
+Bien que cette section soit nécéssaire à la prochaine section, elle peut être
+regardée seulement à titre de démonstration.  Je reprendrai les concepts dans la
+section suivante.
+
+*** Ce que git fait, sans git
+**** TODO Faire vidéo et publier, mettre lien
+*** Survol de ce que git fait
+**** TODO Faire vidéo et publier, mettre lien
+
+** Conscepts fondamentaux de git
+
+*** Concepts principaux
+#+BEGIN_QUOTE
+Cette section est très importante.  Quand je vais expliquer comment une commande
+fonctionne, ou le fil conducteur d'une série de commandes voulant accomplir un
+but, ce sera dans le langage des concepts fondamentaux.
+
+Notament, j'explique une définition de 'branche' qui est extrêmement importante
+à utiliser.  C'est ce qui m'a permis de détecter une icompréhension fondamentale
+simplement parce que l'utilisation du mot "dans" au lieu de "sur" a chatouillée
+mon oreille (voir section sur le vocabulaire).
+#+END_QUOTE
+
+Voir vidéo
+**** TODO Faire vidéo
+
+**** Résumé
+
+ - Un commit est un snapshot de notre projet, figé dans le pour toujours
+ - Chaque commit a une référence à un commit parent (sauf le premier commit)
+ - Les commits avec ces références forment un graphe, *le graphe de commits*.
+ - Les branches sont un concept séparé du graphe de commits
+ - Les branches sont des pointeurs contenant l'identifiant d'un commit
+ - Les branches sont un peu plus que des pointeurs car certaines opérations git
+   changent ces pointeurs automatiquement.
+ - La dichotomie snapshot-changement
+
+*** Concepts secondaires
+
+Les concepts suivants sont importants parce qu'on ne peut pas utiliser git sans
+eux, mais ils sont secondaires dans le sens ou git aurait pu être fait sans ces
+concepts et aurait été capable de faire toutes les mêmes choses, par contre,
+cette fonctionnalité additionnelle est vraiment utile à avoir.
+
+En gros, ce sont des mécanismes qui nous permettent de contrôler la création de
+snapshots dans git.
+
+Supposons que je fais une modification, je sauve un snapshot, je fais une autre
+modification, je fais un commit.
+
+Maintenant supposons que j'aie fait les deux changements et 
+
+Index, staging area: Les couleurs de git status
+
+*** TODO : Vidéo rapide motivation pour le mécanisme git add
+
+*** Résumé
+
+- On peut segmenter des changements en plusieurs commits
+- L'index nous permet ce contrôle fin, mais ça fait qu'il faut toujours ajouter
+  des choses à l'index avant de faire un commit.
+- On devrait toujours faire attention à ce qu'il y a dans l'index avant de faire
+  un commit
+- Toujours faire git status avant et après chaque commande git.
+
+** Utilisation de git
+
+*** Faire un commits
+
+**** TODO Démonstration élémentaire
+
+**** TODO Quelques démos plus complexes
+
+**** Commandes
+
+#+BEGIN_SRC sh
+git add <un_fichier>
+git commit -m <message>
+git reset HEAD
+#+END_SRC
+
+**** Les merge (forshadowing)
+
+Je parle brièvement des merge car c'est l'autre façon de créer des commits.
+Je veux juste qu'on puesse avoir l'idée abstraite d'un merge en tête pour le
+futur.
+
+***** TODO Foreshadowing sur les merge
+
+*** Faire un checkout
+
+**** TODO Démo élémentaire
+
+- Checkout d'un commit
+
+**** TODO Démo plus complexe
+
+- Checkout d'un fichier
+
+**** Commandes
+
+#+BEGIN_SRC sh
+git checkout <un_commit>
+git checkout <un_commit> <un_fichier>
+#+END_SRC
+
+*** Créer une branche
+
+**** TODO Démo élémentaire
+
+- Créer une branche, checkout de branche, concept de branche courante et le fait
+  que la branche courante bouge quand on fait un commit
+
+***** Note sur le vocabulaire
+
+Le vocabulaire concernant les branches est crucial pour l'enseignement et la
+compréhension de git.  La section suivante s'adresse plus aux enseignants de
+git.
+
+Je propose des formulations précises qui permettent de bien classer les concepts
+dans les explications et utiliser des mots qui minimisent les confusions
+possibles.
+
+Ces formulations ont étées rafinées sur plusieurs années d'enseignement de git à
+des centaines d'étudiants qui l'apprenaient pour la première fois.
+
+****** Branche courante
+ Le premier point concerne le terme (que je crois avoir inventé) de branche
+ courante (en anglais, ils disent "the currently checked out branch" et je crois
+ que c'est un terme horrible qui devrait être remplacé par "the current branch"
+ pour des raison que j'explique).
+
+ Oui, checkout une branche met cette branche comme branche courante, mais je
+ crois qu'il est très important d'utiliser la formulation suivante et de ne pas
+ dévier de celle ci:
+
+ #+BEGIN_QUOTE
+ Faire un checkout d'un commit (en donnant son hash ou en donnant une branche
+ qui pointe sur ce commit) met notre dossier exactement identique au snapshot
+ représenté par ce commit.  On dit alors qu'on est sur ce commit.
+
+ Si on checkout un commit en donnant une branche, cela a pour effet de faire un
+ checkout /du commit sur lequel cette branche point/ *et* de marquer la branche
+ nommée comme branche courante.
+
+ Lorsqu'on fait un commit, cette branche, étant marqué comme la branche
+ courante, sera changé pour pointer sur le nouveau commit créé.
+
+ On dit alors qu'on a fait un commit sur cette branche
+ #+END_QUOTE
+
+ Dans les explications de procédures plus complèxes, le fait de faire attention
+ d'utiliser ces formulations va rendre les explications moins suceptibles d'êtres
+ mal comprises.
+
+****** "Sur une branche"
+
+ Ensuite il est important de préciser l'utilisation du mot "sur"
+
+ Les concepts de "sur une branche" et "sur un commit" sont en fait très
+ différents.  On peut dire qu'un commit est sur une branche.
+
+ Pour ne pas mélanger les idées derrière ces termes très similaires, je vais
+ utiliser le terme "sur une branche" uniquement pour dire qu'un commit est sur
+ une branche.
+
+ Toute autre utilisation de "sur une branche" peut être reformulée en évitant à
+ tout prix le mot "sur".  C'est pourquoi j'ai inventé le terme 'branche courante'.
+
+ Je vais donc faire très attention quand j'utilise les mots "je suis sur un
+ commit" si je veux utiliser un nom de branche pour désigner ce commit.  Ja vais
+ dire "Je suis sur le commit pointé par la branche master".
+
+ *Ceci, pour les enseignants de git, est la chose la plus importante à ne jamais
+ oublier*. Si on se force à toujours le dire comme ça, ça renforce l'idée qu'une
+ branche est un pointeur et ça assure qu'on n'utilise jamais le mot "sur une
+ branche" autrement que pour dire qu'un commit est sur une branche.
+
+ L'expression "faire un commit sur une branche" est parfaitement légitime,
+ quoiqu'elle doit quand même être utilisée avec soin devant les néophytes.  Bien
+ que le vocabulaire soit juste, toutes sortes d'expressions semblables sont tout
+ à fait erronées.
+
+****** Résumé
+
+ - Je peux être sur un commit
+ - Je ne peux pas être sur une branche
+ - Mais je peux être sur le commit pointé par une branche
+ - Un commit peut être sur une branche et c'est la seule utilisation sanctionnée
+   de "sur une branche".
+ - Le terme branche courante permet d'éviter toute utilisation non-sancitonnée du
+   mot "sur une branche"
+
+
+
+**** TODO Démos complexes
+
+
