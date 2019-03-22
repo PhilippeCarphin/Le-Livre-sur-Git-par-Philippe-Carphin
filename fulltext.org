@@ -218,7 +218,10 @@ git checkout <un_commit> <un_fichier>
 - Créer une branche, checkout de branche, concept de branche courante et le fait
   que la branche courante bouge quand on fait un commit
 
-***** Note sur le vocabulaire
+
+**** TODO Démos complexes
+
+**** Note sur le vocabulaire
 
 Le vocabulaire concernant les branches est crucial pour l'enseignement et la
 compréhension de git.  La section suivante s'adresse plus aux enseignants de
@@ -231,75 +234,72 @@ possibles.
 Ces formulations ont étées rafinées sur plusieurs années d'enseignement de git à
 des centaines d'étudiants qui l'apprenaient pour la première fois.
 
-****** Branche courante
- Le premier point concerne le terme (que je crois avoir inventé) de branche
- courante (en anglais, ils disent "the currently checked out branch" et je crois
- que c'est un terme horrible qui devrait être remplacé par "the current branch"
- pour des raison que j'explique).
+***** Branche courante
+Le premier point concerne le terme (que je crois avoir inventé) de branche
+courante (en anglais, ils disent "the currently checked out branch" et je crois
+que c'est un terme horrible qui devrait être remplacé par "the current branch"
+pour des raison que j'explique).
 
- Oui, checkout une branche met cette branche comme branche courante, mais je
- crois qu'il est très important d'utiliser la formulation suivante et de ne pas
- dévier de celle ci:
+Oui, checkout une branche met cette branche comme branche courante, mais je
+crois qu'il est très important d'utiliser la formulation suivante et de ne pas
+dévier de celle ci:
 
- #+BEGIN_QUOTE
- Faire un checkout d'un commit (en donnant son hash ou en donnant une branche
- qui pointe sur ce commit) met notre dossier exactement identique au snapshot
- représenté par ce commit.  On dit alors qu'on est sur ce commit.
+#+BEGIN_QUOTE
+Faire un checkout d'un commit (en donnant son hash ou en donnant une branche
+qui pointe sur ce commit) met notre dossier exactement identique au snapshot
+représenté par ce commit.  On dit alors qu'on est sur ce commit.
 
- Si on checkout un commit en donnant une branche, cela a pour effet de faire un
- checkout /du commit sur lequel cette branche point/ *et* de marquer la branche
- nommée comme branche courante.
+Si on checkout un commit en donnant une branche, cela a pour effet de faire un
+checkout /du commit sur lequel cette branche point/ *et* de marquer la branche
+nommée comme branche courante.
 
- Lorsqu'on fait un commit, cette branche, étant marqué comme la branche
- courante, sera changé pour pointer sur le nouveau commit créé.
+Lorsqu'on fait un commit, cette branche, étant marqué comme la branche
+courante, sera changé pour pointer sur le nouveau commit créé.
 
- On dit alors qu'on a fait un commit sur cette branche
- #+END_QUOTE
+On dit alors qu'on a fait un commit sur cette branche
+#+END_QUOTE
 
- Dans les explications de procédures plus complèxes, le fait de faire attention
- d'utiliser ces formulations va rendre les explications moins suceptibles d'êtres
- mal comprises.
+Dans les explications de procédures plus complèxes, le fait de faire attention
+d'utiliser ces formulations va rendre les explications moins suceptibles d'êtres
+mal comprises.
 
-****** "Sur une branche"
+***** "Sur une branche"
 
- Ensuite il est important de préciser l'utilisation du mot "sur"
+Ensuite il est important de préciser l'utilisation du mot "sur"
 
- Les concepts de "sur une branche" et "sur un commit" sont en fait très
- différents.  On peut dire qu'un commit est sur une branche.
+Les concepts de "sur une branche" et "sur un commit" sont en fait très
+différents.  On peut dire qu'un commit est sur une branche.
 
- Pour ne pas mélanger les idées derrière ces termes très similaires, je vais
- utiliser le terme "sur une branche" uniquement pour dire qu'un commit est sur
- une branche.
+Pour ne pas mélanger les idées derrière ces termes très similaires, je vais
+utiliser le terme "sur une branche" uniquement pour dire qu'un commit est sur
+une branche.
 
- Toute autre utilisation de "sur une branche" peut être reformulée en évitant à
- tout prix le mot "sur".  C'est pourquoi j'ai inventé le terme 'branche courante'.
+Toute autre utilisation de "sur une branche" peut être reformulée en évitant à
+tout prix le mot "sur".  C'est pourquoi j'ai inventé le terme 'branche courante'.
 
- Je vais donc faire très attention quand j'utilise les mots "je suis sur un
- commit" si je veux utiliser un nom de branche pour désigner ce commit.  Ja vais
- dire "Je suis sur le commit pointé par la branche master".
+Je vais donc faire très attention quand j'utilise les mots "je suis sur un
+commit" si je veux utiliser un nom de branche pour désigner ce commit.  Ja vais
+dire "Je suis sur le commit pointé par la branche master".
 
- *Ceci, pour les enseignants de git, est la chose la plus importante à ne jamais
- oublier*. Si on se force à toujours le dire comme ça, ça renforce l'idée qu'une
- branche est un pointeur et ça assure qu'on n'utilise jamais le mot "sur une
- branche" autrement que pour dire qu'un commit est sur une branche.
+*Ceci, pour les enseignants de git, est la chose la plus importante à ne jamais
+oublier*. Si on se force à toujours le dire comme ça, ça renforce l'idée qu'une
+branche est un pointeur et ça assure qu'on n'utilise jamais le mot "sur une
+branche" autrement que pour dire qu'un commit est sur une branche.
 
- L'expression "faire un commit sur une branche" est parfaitement légitime,
- quoiqu'elle doit quand même être utilisée avec soin devant les néophytes.  Bien
- que le vocabulaire soit juste, toutes sortes d'expressions semblables sont tout
- à fait erronées.
+L'expression "faire un commit sur une branche" est parfaitement légitime,
+quoiqu'elle doit quand même être utilisée avec soin devant les néophytes.  Bien
+que le vocabulaire soit juste, toutes sortes d'expressions semblables sont tout
+à fait erronées.
 
-****** Résumé
+***** Résumé
 
- - Je peux être sur un commit
- - Je ne peux pas être sur une branche
- - Mais je peux être sur le commit pointé par une branche
- - Un commit peut être sur une branche et c'est la seule utilisation sanctionnée
-   de "sur une branche".
- - Le terme branche courante permet d'éviter toute utilisation non-sancitonnée du
-   mot "sur une branche"
+- Je peux être sur un commit
+- Je ne peux pas être sur une branche
+- Mais je peux être sur le commit pointé par une branche
+- Un commit peut être sur une branche et c'est la seule utilisation sanctionnée
+  de "sur une branche".
+- Le terme branche courante permet d'éviter toute utilisation non-sancitonnée du
+  mot "sur une branche"
 
-
-
-**** TODO Démos complexes
 
 
