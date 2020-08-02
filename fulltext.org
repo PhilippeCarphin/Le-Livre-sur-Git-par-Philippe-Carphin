@@ -47,8 +47,8 @@ revoir les notions élémentaires de git sur les branches."
 ** Introduction
 
 Si vous connaissez sans ouvrir de documentation ou de notes personnelles
-exactement ce que font 3 sur 5 de ces commandes, mais vous devriez quand même le
-regarder.
+exactement ce que font 3 sur 5 de ces commandes, vous pouvez sauter à la
+prochaine section.
 
 #+BEGIN_SRC sh
 git push cmc develop
