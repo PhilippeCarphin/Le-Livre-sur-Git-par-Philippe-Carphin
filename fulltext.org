@@ -7,7 +7,10 @@ Porter attention au vocabulaire.  C'est important parce que ça peut nous
 permettre de détecter nos propres incompréhensions.
 
 Quand je dis 'attention', je veux dire *attention très particulière*.
-J'illustre par un exemple: j'ai entendu des gens autour de moi dire "dans une
+J'illustre par un exemple:
+
+**** Annecdote sur l'utilisation du vocabulaire
+J'étais dans un lab de Poly.  J'ai entendu des gens autour de moi dire "dans une
 branche".  Par contre, la façon habituelle de parler est de dire "sur une
 branche".  Les gens ne disent pas vraiment ça "dans une branche".
 
@@ -23,8 +26,8 @@ voir.  Je leur ai parlé de leur utilisation du terme "dans" et je leur ai
 demandé d'où ça venait.
 
 Ce qu'ils m'ont dit m'a permis de déceler la source d'une incompréhension d'un
-concep de base sur lequel la compréhension de presque tout git dépend.  Cette
-incompréhension nuisait à leur compréhension de tous les concepts dépendant.
+concept de base sur lequel la compréhension de presque tout git dépend.  Cette
+incompréhension nuisait à leur compréhension de tous les concepts dépendants.
 
 Je ne mentionnerai pas l'incompréhension ici pour ne pas polluer le cerveau de
 quelqu'un de très nouveau, étant donné que cette section est au début.
@@ -155,7 +158,28 @@ snapshots dans git.
 Supposons que je fais une modification, je sauve un snapshot, je fais une autre
 modification, je fais un commit.
 
-Maintenant supposons que j'aie fait les deux changements et 
+Maintenant supposons que j'aie fait les deux changements mais j'aimerais générer
+les deux mêmes snapshots que dans le paragraphe précédent.
+
+Je peux faire ça.  L'étape avant de faire un commit est la préparation de
+commit.  Cette étape nous permet de regarder les changements non commités et
+décider lesquels de ces changements vont aller dans le commit qu'on s'apprête à
+créer.
+
+Par exemple, je peux avoir rajouté des =std::cout= partout dans mon code pour
+trouver la solution à mon problème, et j'ai aussi des changements qui sont la
+solution au problème.
+
+Ayant complété quelque chose, je veux faire un commit.  Mais je ne veux pas
+sauver une version avec des =std::cout= partout.  Je peux décider de "marquer"
+d'une certaine façon les changements qui sont pertinents à la solution du
+problème.
+
+Cette façon de marquer des changements nous permet de dire
+#+BEGIN_QUOTE
+Sauve un snapshot qui est le snapshot précédent plus les changements marqués
+mais pas les changements non-marqués.
+#+END_QUOTE
 
 Index, staging area: Les couleurs de git status
 
@@ -300,6 +324,138 @@ que le vocabulaire soit juste, toutes sortes d'expressions semblables sont tout
   de "sur une branche".
 - Le terme branche courante permet d'éviter toute utilisation non-sancitonnée du
   mot "sur une branche"
+
+
+
+
+
+*** Les différents resets
+
+** Annexes
+
+*** Bonnes pratiques
+
+**** Dichotomie des commits
+
+***** Extrême: Commits parfaits
+
+#+BEGIN_QUOTE
+Ne jamais faire de commit à moins que le code compile et passe tous les tests et
+aussi que le code soit d'une qualité exceptionnelle.
+#+END_QUOTE
+
+Ceci cause un problème au niveau opérationnel. Si on fait du progrès et qu'on
+brise une partie de notre progrès en avançant, git est inutile pour nous aider à
+inverser le bris qu'on vient de faire.
+
+L'autre problème avec ça c'est qu'on fini par avoir un commit dont le message
+est "Ajout du feature X" qui change 50 fichiers et on comprend rien.
+
+***** Extrême: Plein de commits
+
+On utilise git comme outil de travail pour sauver notre progrès de façon très
+granulaire avec pleins de commits dont on réfléchi seulement assez au message
+pour qu'il soit significatif pour nous-mêmes.
+
+Le problème avec ça est évidement que ça pollue l'historique du projet.
+
+***** Solution: Pleins de commits WIP et un rebase interactif 
+
+WIP veut dire "work in progress", marquer un commit comme WIP (par exemple en
+commençant le message de commit par "WIP") indique que si on checkout ce commit,
+on ne doit pas s'attendre à ce que le code compile nécéssairement, ou que tous
+les tests passent.
+
+En effet, il est presqu'universellement interdit de commiter du code qui "ne
+marche pas" au sens large du terme.
+
+Mais en réalité, la vraie règle, c'est "les autres ne doivent jamais voir nos
+commits de code qui ne marche pas".
+
+Pour les étudiants qui sont nouveaux avec git, j'estime qu'il est plus important
+d'apprendre à utiliser git comme outil de travail indispensable que de respecter
+à la lettre cette règle.  À cette fin, je propose que les utilisateurs qui ne
+sont pas à l'aise avec les rebase interactifs se permettent de faire toutes
+sortes de commits pour sauver leurs progrès, mais qu'ils marquent ces commits
+comme WIP.
+
+En plus de ça, il devrait être interdit de faire un push si notre master pointe
+sur un commit WIP.  Car sinon, quelqu'un pourrait faire un pull(*) et là le
+projet "ne marcherait pas".
+
+Des utilisateurs expérimentés pourraient être scandalisés par ce que je dis et
+fourniraient l'objection que des commits de type "WIP" ne devraient jamais être
+faits sur master.
+
+À cette objection je répondrai que mon conseil concerne l'enseignement de git à
+des étudiants qui viennent tout juste d'apprendre à faire des commits mais n'ont
+pas encore maîtrisé le concept de branche.
+
+Aussi, cette objection n'est valide que pour des étudiants qui ignorent les
+concepts fondamentaux tels que décrits ici.
+
+Ne peut-on pas dire qu'un étudiant qui connaît les concepts fondamentaux, et qui
+sait utiliser correctement le mot "sur" ... un tel étudiant ne peut-il pas
+comprendre facilement qu'il n'a qu'à faire une branche et la merger dans master
+quand tout compile.
+
+Et ne peut-on pas dire qu'un étudiant bénificierait du conseil de faire toutes
+sortes de commits de type WIP sur une branche temporaire et quand ça compile et
+tous les test passent, alors là et là seulement il merge sur master.
+
+Et ne peut-on pas dire que cet étudiant peut pusher sa branche de travail pour
+communiquer son progrès à ses coéquipiers?
+
+Et ne peut-on pas dire que les coéquipiers de cet étudiant ne vont jamais pull
+leurs branches personnelles out des branches communes et avoir du code
+non-fonctionnel?
+
+Et peut-on dire que tout ceci ne nécessite aucune commande avancée?
+
+Adamantus: "En effet car nous n'avons besoin que des commandes
+git add
+git commit
+git push
+git fetch
+git merge
+git checkout
+git branch
+et ce sont les commande élémentaires de git.
+"
+
+Alors quels étaient les buts nos deux extrêmes.
+
+Adamantus: "Je ne comprend pas."
+
+Chacune des deux extrêmes que nous avons nommées étaient reliées à un but qui
+leur était propre.
+
+Quel pourraît être ces buts.
+
+Adamantus: "Je crois que la première avait pour but d'avoir un historique concis
+et propre."
+
+Et cet extrême avait aussi pour but que la branche master n'ait que des commits
+immaculés.  Et nous avons soulagé ce but pour le suivant: "que si on checkout la
+branche master on tombe sur un commit immaculé".  Ou autrement dit "que master
+doit toujours pointer sur un commit immaculé".
+
+#+BEGIN_SRC sh
+Nous avons dit ceci pour permettre à des étudiants de bénificier de la
+possibilité d'utiliser git comme outil pour documenter et aider leur progrès
+tout en évitant de leur demander d'utiliser des fonctionnalités de réécriture
+d'historique.
+#+END_SRC
+
+Adamantus: "Oui, nous voulons un historique qui n'est constitué que de versions
+fonctionnelles et pour les néophytes, nous voulons simplement qu'ils travaillent
+de façon à ce que leurs branches communes ne pointent que sur des version
+fonctionnelles".
+
+Et maintenant qu'en est-il de l'autre extrême?
+
+Adamantus: "À l'autre extrême, ceux qui disent de faire des commits de type WIP
+prétendent 
 
 
 
